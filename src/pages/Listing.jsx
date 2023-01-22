@@ -21,6 +21,7 @@ import {
   FaChair,
 } from "react-icons/fa";
 import Contact from "../components/Contact";
+import { MapContainer, TileLayer, Popup, Marker } from "react-leaflet";
 
 const Listing = () => {
   const auth = getAuth();
@@ -191,10 +192,29 @@ const Listing = () => {
           )}
         </div>
         <div
-          className="bg-blue-300 w-full h-[200px] lg-[400px] z-10
+          className=" w-full z-10 mt-6 md:mt-0 h-[250px] lg:h-[350px] md:ml-2
         overflow-x-hidden
         "
-        ></div>
+        >
+          <MapContainer
+            center={[listing.geolocation.lat, listing.geolocation.lng]}
+            zoom={13}
+            scrollWheelZoom={false}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker
+              position={[listing.geolocation.lat, listing.geolocation.lng]}
+            >
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          </MapContainer>
+        </div>
       </div>
     </main>
   );
